@@ -9,11 +9,18 @@
 
 <script>
 export default {
+  middleware: 'test',
   head() {
     return {
       title: 'About',
       script: [{ src: '/about.js' }],
-      meta: [{ hid:'description', name:'descripiton', content:'This is an amazing page'},]
+      meta: [
+        {
+          hid: 'description',
+          name: 'descripiton',
+          content: 'This is an amazing page',
+        },
+      ],
     }
   },
   asyncData() {
@@ -21,11 +28,11 @@ export default {
       title: 'About',
     }
   },
-//   data() {
-//     return {
-//       title: 'About',
-//     }
-//   },
+  //   data() {
+  //     return {
+  //       title: 'About',
+  //     }
+  //   },
 }
 </script>
 
