@@ -3,7 +3,7 @@
     <h2>{{ title }}</h2>
     <!-- <router-link to="/">Home</router-link> -->
     <!-- <n-link to="/">Home</n-link> -->
-    <NuxtLink to="/">Home</NuxtLink>
+    <!-- <NuxtLink to="/">Home</NuxtLink> -->
   </div>
 </template>
 
