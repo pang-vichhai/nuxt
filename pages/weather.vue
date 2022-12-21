@@ -84,10 +84,11 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
-  head(){
-    return{
-      title: 'Weather'
+  head() {
+    return {
+      title: 'Weather',
     }
   },
   data() {
@@ -106,34 +107,40 @@ export default {
     temp() {
       return Math.round(this.weather.main.temp - 273)
     },
-    city:{
-      get(){
+    city: {
+      get() {
         return this.$store.state.weather.city
       },
-      set(value){
-        this.$store.commit('weather/setCity',value)
-      }
-    }
+      set(value) {
+        this.$store.commit('weather/setCity', value)
+      },
+    },
+    // weather: {
+    //   get() {
+    //     return this.$store.state.weather.weather
+    //   },
+    //   set(value) {
+    //     this.$store.commit('weather/setWeather', value)
+    //   },
+    // },
+    ...mapState('weather',['weather'])
   },
   methods: {
     getWeatherInfo() {
-      this.$axios
-        .$get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${process.env.weatherAppId}`
-        )
-        .then((res) => {
-          this.weather = res
-        })
+      this.$store.dispatch('weather/getWeatherInfo')
     },
   },
-  asyncData({ params, $axios }) {
-    return $axios
-      .$get(
-        `https://api.openweathermap.org/data/2.5/weather?q=london&appid=${process.env.weatherAppId}`
-      )
-      .then((res) => {
-        return { weather: res }
-      })
+  // asyncData({ params, $axios }) {
+  //   return $axios
+  //     .$get(
+  //       `https://api.openweathermap.org/data/2.5/weather?q=london&appid=${process.env.weatherAppId}`
+  //     )
+  //     .then((res) => {
+  //       return { weather: res }
+  //     })
+  // },
+  fetch({ store, $axios }) {
+    return store.dispatch('weather/getWeatherInfo')
   },
 }
 </script>
