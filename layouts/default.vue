@@ -28,7 +28,8 @@
     <v-app-bar :clipped-left="clipped" fixed app >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-spacer></v-spacer>
-      <v-toolbar-title v-text="title" />
+      <!-- <v-toolbar-title v-text="title" /> -->
+      <h1>{{title}}</h1>
       <v-spacer />
       <!-- <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
@@ -76,11 +77,16 @@ export default {
           title: 'Weather',
           to: '/weather',
         },
+        {
+          icon: 'mdi-account-question-outline',
+          title : 'Quiz',
+          to: '/quiz'
+        }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js',
+      title: 'Nuxt ',
     }
   },
 }

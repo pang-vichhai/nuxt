@@ -115,6 +115,7 @@ export default {
         this.$store.commit('weather/setCity', value)
       },
     },
+
     // weather: {
     //   get() {
     //     return this.$store.state.weather.weather
