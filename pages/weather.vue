@@ -85,9 +85,14 @@
 
 <script>
 export default {
+  head(){
+    return{
+      title: 'Weather'
+    }
+  },
   data() {
     return {
-      city: 'london',
+      // city: 'london',
       //   weather: {},
     }
   },
@@ -101,6 +106,14 @@ export default {
     temp() {
       return Math.round(this.weather.main.temp - 273)
     },
+    city:{
+      get(){
+        return this.$store.state.weather.city
+      },
+      set(value){
+        this.$store.commit('weather/setCity',value)
+      }
+    }
   },
   methods: {
     getWeatherInfo() {

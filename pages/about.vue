@@ -1,13 +1,16 @@
 <template>
-  <div>
+  <div class="text-center">
     <h2>{{ title }}</h2>
     <!-- <router-link to="/">Home</router-link> -->
     <!-- <n-link to="/">Home</n-link> -->
     <!-- <NuxtLink to="/">Home</NuxtLink> -->
+    <p>{{ course }}</p>
+    <v-text-field v-model="course"></v-text-field>
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   middleware: 'test',
   head() {
@@ -33,6 +36,16 @@ export default {
   //       title: 'About',
   //     }
   //   },
+  computed: {
+    course:{
+      get(){
+        return  this.$store.getters.upperCase
+      },
+      set(value){
+        this.$store.commit('setCourse',value)
+      }
+    },
+  },
 }
 </script>
 

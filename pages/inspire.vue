@@ -20,6 +20,11 @@
 
 <script>
 export default {
-  name: 'InspirePage'
+  name: 'InspirePage',
+  head(){
+    return{
+      title: 'Inspire'
+    }
+  }
 }
 </script>

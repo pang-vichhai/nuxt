@@ -5,7 +5,7 @@ require('dotenv').config()
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - nuxt',
+    // titleTemplate: '%s - nuxt',
     title: 'nuxt',
     meta: [
       { charset: 'utf-8' },
