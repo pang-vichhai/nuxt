@@ -34,7 +34,10 @@
         <v-icon>mdi-menu</v-icon>
       </v-btn> -->
       <v-btn icon to="/login">
-        <v-icon>mdi-login</v-icon>
+        <v-icon color="purple">mdi-login</v-icon>
+      </v-btn>
+      <v-btn icon v-if="$auth()" @click="logout">
+        <v-icon color="red">mdi-account-arrow-left-outline</v-icon>
       </v-btn>
     </v-app-bar>
     <v-main>
@@ -48,6 +51,11 @@
 <script>
 export default {
   name: 'DefaultLayout',
+  computed: {
+    path() {
+      return (this.$router.path = '/admin/question')
+    },
+  },
   data() {
     return {
       clipped: false,
@@ -90,6 +98,13 @@ export default {
       rightDrawer: false,
       title: 'Nuxt ',
     }
+  },
+  methods: {
+    logout() {
+      this.$cookies.remove('token')
+      this.$auth()
+      this.$router.push('/')
+    },
   },
 }
 </script>
