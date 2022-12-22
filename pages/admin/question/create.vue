@@ -87,7 +87,7 @@ export default {
     store() {
       this.$axios
         .post(
-          `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/questions.json`,
+          `/questions.json`,
           this.quiz
         )
         .then((res) => {
@@ -100,7 +100,7 @@ export default {
     storeAnswer(id) {
       this.$axios
         .post(
-          `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/answers.json`,
+          `/answers.json`,
           { question_id: id, answer: this.correct }
         )
         .then((res) => this.$router.push('/admin/question'))

@@ -110,7 +110,7 @@ export default {
     update() {
       this.$axios
         .$patch(
-          `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/questions/${this.$route.params.edit}.json`,
+          `/questions/${this.$route.params.edit}.json`,
           this.quiz
         )
         .then((res) => {
@@ -120,7 +120,7 @@ export default {
     getAnswer() {
       this.$axios
         .$get(
-          `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/answers.json?orderBy="question_id"&startAt="${this.$route.params.edit}"&endAt="${this.$route.params.edit}"`
+          `/answers.json?orderBy="question_id"&startAt="${this.$route.params.edit}"&endAt="${this.$route.params.edit}"`
         )
         .then((res) => {
           this.correct = Object.values(res)[0].answer
@@ -130,7 +130,7 @@ export default {
     updateAnswer() {
       this.$axios
         .patch(
-          `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/answers/${this.answer_id}.json`,
+          `/answers/${this.answer_id}.json`,
           {
             question_id: this.$route.params.edit,
             answer: this.correct,

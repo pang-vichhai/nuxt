@@ -68,7 +68,7 @@ export default {
     fetchQuestion() {
       this.$axios
         .get(
-          `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/questions.json`
+          `/questions.json`
         )
         .then(
           (res) =>
@@ -84,18 +84,18 @@ export default {
     remove(key) {
       this.$axios
         .delete(
-          `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/questions/${key}.json`
+          `/questions/${key}.json`
         )
         .then((res) => {
           this.$axios
             .get(
-              `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/answers.json?orderBy="question_id"&startAt="${key}"&endAt="${key}"`
+              `/answers.json?orderBy="question_id"&startAt="${key}"&endAt="${key}"`
             )
             .then((res) => {
               const answerId = Object.keys(res.data)[0]
               this.$axios
                 .delete(
-                  `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/answers/${answerId}.json`
+                  `/quiz/answers/${answerId}.json`
                 )
                 .then((res) => this.question.splice(this.question[key]))
             })
