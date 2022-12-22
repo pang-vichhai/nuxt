@@ -20,8 +20,8 @@
             <template #[`item.action`]="{ item }">
               <v-tooltip top>
                 <template v-slot:activator="{ on, attr }">
-                  <v-btn icon v-bind="attr" v-on="on" @click="goTo(item)">
-                    <v-icon small>mdi-delete</v-icon>
+                  <v-btn icon v-bind="attr" v-on="on" @click="remove(item.id)">
+                    <v-icon color="red" small>mdi-delete</v-icon>
                   </v-btn>
                 </template>
                 <span>Delete</span>
@@ -34,7 +34,7 @@
                     v-on="on"
                     :to="`/admin/question/${item.id}`"
                   >
-                    <v-icon small>mdi-file-document-edit</v-icon>
+                    <v-icon color="yellow" small>mdi-file-document-edit</v-icon>
                   </v-btn>
                 </template>
                 <span>Edit</span>
@@ -80,6 +80,26 @@ export default {
     },
     goTo(id) {
       return id
+    },
+    remove(key) {
+      this.$axios
+        .delete(
+          `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/questions/${key}.json`
+        )
+        .then((res) => {
+          this.$axios
+            .get(
+              `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/answers.json?orderBy="question_id"&startAt="${key}"&endAt="${key}"`
+            )
+            .then((res) => {
+              const answerId = Object.keys(res.data)[0]
+              this.$axios
+                .delete(
+                  `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/answers/${answerId}.json`
+                )
+                .then((res) => this.question.splice(this.question[key]))
+            })
+        })
     },
   },
   created() {
