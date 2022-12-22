@@ -6,7 +6,6 @@
       :clipped="clipped"
       fixed
       app
-
     >
       <v-list>
         <v-list-item
@@ -25,15 +24,18 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app >
+    <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-spacer></v-spacer>
       <!-- <v-toolbar-title v-text="title" /> -->
-      <h1>{{title}}</h1>
+      <h1>{{ title }}</h1>
       <v-spacer />
       <!-- <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn> -->
+      <v-btn icon to="/login">
+        <v-icon>mdi-login</v-icon>
+      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -79,9 +81,9 @@ export default {
         },
         {
           icon: 'mdi-account-question-outline',
-          title : 'Quiz',
-          to: '/quiz'
-        }
+          title: 'Quiz',
+          to: '/quiz',
+        },
       ],
       miniVariant: false,
       right: true,
