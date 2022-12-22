@@ -4,14 +4,14 @@
       <v-col cols="12">
         <v-card>
           <v-card-title class="purple">
-            <h2 class="display-1 text-center">Add Question Here!</h2>
+            <h2 class="display-1 text-center">Edit Question Here!</h2>
             <v-spacer></v-spacer>
             <n-link to="/admin/question">
-              <h2 class="display-1 text-center">All Question</h2>
+              <h2 class="display-1 text-center">Back</h2>
             </n-link>
           </v-card-title>
           <v-card-text class="pa-4" row>
-            <v-form @submit.prevent="store">
+            <v-form @submit.prevent="update">
               <v-text-field label="Question" v-model="quiz.question" outlined>
               </v-text-field>
               <div class="d-md-flex">
@@ -59,7 +59,7 @@
                 </v-radio-group>
               </div>
               <v-card-actions>
-                <v-btn type="submit" color="purple">Add Question</v-btn>
+                <v-btn type="submit" color="purple">Update</v-btn>
               </v-card-actions>
             </v-form>
           </v-card-text>
@@ -81,31 +81,69 @@ export default {
         option4: null,
       },
       correct: '',
+      answer_id: '',
     }
   },
   methods: {
-    store() {
+    get() {
       this.$axios
-        .post(
-          `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/questions.json`,
-          this.quiz
+        .get(
+          `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/questions.json`
         )
         .then((res) => {
-          this.storeAnswer(res.data.name)
+          this.quiz = res.data[this.$route.params.edit]
         })
         .catch((err) => {
           console.log(err.response.data)
         })
     },
-    storeAnswer(id) {
+    // storeAnswer(id) {
+    //   this.$axios
+    //     .post(
+    //       `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/answers.json`,
+    //       { question_id: id, answer: this.correct }
+    //     )
+    //     .then((res) => console.log(res))
+    //     .catch((err) => console.log(err.response.data))
+    // },
+
+    update() {
       this.$axios
-        .post(
-          `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/answers.json`,
-          { question_id: id, answer: this.correct }
+        .$patch(
+          `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/questions/${this.$route.params.edit}.json`,
+          this.quiz
         )
-        .then((res) => this.$router.push('/admin/question'))
-        .catch((err) => console.log(err.response.data))
+        .then((res) => {
+          this.updateAnswer()
+        })
     },
+    getAnswer() {
+      this.$axios
+        .$get(
+          `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/answers.json?orderBy="question_id"&startAt="${this.$route.params.edit}"&endAt="${this.$route.params.edit}"`
+        )
+        .then((res) => {
+          this.correct = Object.values(res)[0].answer
+          this.answer_id = Object.keys(res)[0]
+        })
+    },
+    updateAnswer() {
+      this.$axios
+        .patch(
+          `https://nuxt-firebase-6b90c-default-rtdb.asia-southeast1.firebasedatabase.app/quiz/answers/${this.answer_id}.json`,
+          {
+            question_id: this.$route.params.edit,
+            answer: this.correct,
+          }
+        )
+        .then((res) => {
+          this.$router.push('/admin/question')
+        })
+    },
+  },
+  created() {
+    this.get()
+    this.getAnswer()
   },
 }
 </script>
