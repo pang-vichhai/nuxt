@@ -96,7 +96,7 @@ export default {
               const answerId = Object.keys(res.data)[0]
               this.$axios
                 .delete(
-                  `/quiz/answers/${answerId}.json`
+                  `/answers/${answerId}.json`
                 )
                 .then((res) => this.question.splice(this.question[key]))
             })
