@@ -102,7 +102,7 @@ export default {
   methods: {
     logout() {
       this.$cookies.remove('token')
-      this.$auth()
+      this.$store.commit('auth/setLoggedIn', false)
       this.$router.push('/')
     },
   },

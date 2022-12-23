@@ -71,6 +71,7 @@
 
 <script>
 export default {
+  middleware: 'auth',
   data() {
     return {
       quiz: {
@@ -109,10 +110,7 @@ export default {
 
     update() {
       this.$axios
-        .$patch(
-          `/questions/${this.$route.params.edit}.json`,
-          this.quiz
-        )
+        .$patch(`/questions/${this.$route.params.edit}.json`, this.quiz)
         .then((res) => {
           this.updateAnswer()
         })
@@ -129,13 +127,10 @@ export default {
     },
     updateAnswer() {
       this.$axios
-        .patch(
-          `/answers/${this.answer_id}.json`,
-          {
-            question_id: this.$route.params.edit,
-            answer: this.correct,
-          }
-        )
+        .patch(`/answers/${this.answer_id}.json`, {
+          question_id: this.$route.params.edit,
+          answer: this.correct,
+        })
         .then((res) => {
           this.$router.push('/admin/question')
         })

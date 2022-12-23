@@ -1,3 +1,3 @@
-export default ({app}, inject)=>{
-    inject('auth',()=>!!app.$cookies.get('token'))
+export default ({app, store}, inject)=>{
+    inject('auth',()=>store.state.auth.loggedIn)
 }

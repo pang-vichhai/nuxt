@@ -31,6 +31,7 @@
 
 <script>
 export default {
+  middleware: 'guest',
   data() {
     return {
       email: '',
@@ -55,6 +56,7 @@ export default {
     },
     handleToken(token) {
       this.$cookies.set('token', token)
+      this.$store.commit('auth/setLoggedIn', true)
       this.$router.push('/admin/question')
     },
   },

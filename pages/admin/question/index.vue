@@ -50,6 +50,7 @@
 <script>
 import keys from 'jsdom-global/keys'
 export default {
+  middleware:'auth',
   data() {
     return {
       headers: [
