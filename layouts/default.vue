@@ -1,5 +1,9 @@
 <template>
   <v-app dark>
+    <!-- <no-ssr>
+      <vue-notifications group="notify" />
+    </no-ssr> -->
+
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
@@ -72,11 +76,7 @@ export default {
           title: 'Inspire',
           to: '/inspire',
         },
-        {
-          icon: 'mdi-information',
-          title: 'About',
-          to: '/about',
-        },
+
         {
           icon: 'mdi-post-outline',
           title: 'Blogs',
@@ -91,6 +91,11 @@ export default {
           icon: 'mdi-account-question-outline',
           title: 'Quiz',
           to: '/quiz',
+        },
+        {
+          icon: 'mdi-information',
+          title: 'About',
+          to: '/about',
         },
       ],
       miniVariant: false,
